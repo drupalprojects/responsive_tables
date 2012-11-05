@@ -43,5 +43,8 @@ function responsive_tables_preprocess_views_view(&$vars) {
       $vars['view']->style_plugin->options['responsify'] == TRUE
   ) {
     drupal_add_library('responsive_tables', 'responsive-tables');
+    drupal_add_js('jQuery(document).ready(function() { jQuery(".view-dom-id-' . $vars['view']->dom_id . ' table").table(); });', array(
+      'type' => 'inline',
+    ));
   }
 }
