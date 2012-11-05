@@ -31,6 +31,9 @@ function responsive_tables_library() {
         'media' => 'screen',
       ),
     ),
+    'dependencies' => array(
+      array('system', 'ui.widget'),
+    ),
   );
   return $libraries;
 }
