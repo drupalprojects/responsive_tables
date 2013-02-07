@@ -11,22 +11,20 @@
  * Implements hook_library().
  */
 function responsive_tables_library() {
-  $path = drupal_get_path('module', 'responsive_tables') . '/libraries/responsive-tables';
+  $path = libraries_get_path('mediatable');
 
   $libraries['responsive_tables'] = array(
     'title' => 'Responsive Tables',
     'version' => '1.0',
     'js' => array(
-      $path . '/jquery.responsive-tables.js' => array(),
+      $path . '/jquery.mediaTable.js' => array(),
+      $path . '/respond.min.js' => array(),
     ),
     'css' => array(
-      $path . '/jquery.responsive-tables.css' => array(
+      $path . '/jquery.mediaTable.css' => array(
         'type' => 'file',
         'media' => 'screen',
       ),
-    ),
-    'dependencies' => array(
-      array('system', 'ui.widget'),
     ),
   );
   return $libraries;
@@ -40,7 +38,7 @@ function responsive_tables_preprocess_views_view(&$vars) {
       $vars['view']->style_plugin->options['responsify'] == TRUE
   ) {
     drupal_add_library('responsive_tables', 'responsive_tables');
-    drupal_add_js('jQuery(document).ready(function() { jQuery(".view-dom-id-' . $vars['view']->dom_id . ' table").table(); });', array(
+    drupal_add_js('jQuery(document).ready(function() { jQuery(".view-dom-id-' . $vars['view']->dom_id . ' table").mediaTable(); });', array(
       'type' => 'inline',
     ));
   }
