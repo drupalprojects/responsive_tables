@@ -11,7 +11,7 @@
  * Implements hook_library().
  */
 function responsive_tables_library() {
-  $path = libraries_get_path('mediatable');
+  $path = libraries_get_path('MediaTable');
 
   $libraries['responsive_tables'] = array(
     'title' => 'Responsive Tables',

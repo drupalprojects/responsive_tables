@@ -1,8 +1,8 @@
 core = 7.x
 api = 2
 
-libraries[mediatable][download][type] = "git"
-libraries[mediatable][download][url] = "https://github.com/thepeg/MediaTable.git"
-libraries[mediatable][download][branch] = "master"
-libraries[mediatable][directory_name] = "mediatable"
-libraries[mediatable][type] = "library"
+libraries[MediaTable][download][type] = "git"
+libraries[MediaTable][download][url] = "https://github.com/thepeg/MediaTable.git"
+libraries[MediaTable][download][branch] = "master"
+libraries[MediaTable][directory_name] = "MediaTable"
+libraries[MediaTable][type] = "library"
