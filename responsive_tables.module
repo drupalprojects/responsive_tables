@@ -17,10 +17,10 @@ function responsive_tables_library() {
     'title' => 'Responsive Tables',
     'version' => '1.0',
     'js' => array(
-      $library_path . '/jquery.responsive-tables.js' => array(),
+      $path . '/jquery.responsive-tables.js' => array(),
     ),
     'css' => array(
-      $library_path . '/jquery.responsive-tables.css' => array(
+      $path . '/jquery.responsive-tables.css' => array(
         'type' => 'file',
         'media' => 'screen',
       ),
