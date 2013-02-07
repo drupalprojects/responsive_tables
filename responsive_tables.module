@@ -11,13 +11,7 @@
  * Implements hook_library().
  */
 function responsive_tables_library() {
-  $path = drupal_get_path('module', 'responsive_tables');
-
-  $library_path = libraries_get_path('responsive-tables');
-  $library_fullpath = $_SERVER['DOCUMENT_ROOT'] . base_path() . $library_path;
-  if (!file_prepare_directory($library_fullpath)) {
-    $library_path = $path . '/libraries/responsive-tables';
-  }
+  $path = drupal_get_path('module', 'responsive_tables') . '/libraries/responsive-tables';
 
   $libraries['responsive_tables'] = array(
     'title' => 'Responsive Tables',
