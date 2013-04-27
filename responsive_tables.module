@@ -78,11 +78,8 @@ function responsive_tables_theme_table($variables) {
     // Add 'responsive-enabled' class to the table to identify it for JS.
     // This is needed to target tables constructed by this function.
     $attributes['class'][] = 'responsive-enabled';
-    // Add core-theme specific responsive CSS.
-    $css = drupal_get_path('module', 'responsive_tables') . '/css/' . $GLOBALS['theme'] . '.css';
-    if (is_file($css)) {
-      drupal_add_css($css);
-    }
+    // Add responsive CSS.
+    responsive_tables_add_css();
   }
 
   $output = '<table' . drupal_attributes($attributes) . ">\n";
@@ -363,5 +360,63 @@ function responsive_tables_preprocess_views_view_table(&$vars) {
     // Add 'responsive-enabled' class to the table to identify it for JS.
     // This is needed to target tables constructed by this function.
     $vars['attributes']['class'][] = 'responsive-enabled';
+    // Add responsive CSS.
+    responsive_tables_add_css();
+  }
+}
+
+/**
+ * Add the CSS necessary for responsive tables to actually work.
+ */
+function responsive_tables_add_css() {
+  $theme = $GLOBALS['theme'];
+
+  $medium = theme_get_setting('responsive_tables_medium_priority_max_width');
+  $low    = theme_get_setting('responsive_tables_low_priority_max_width');
+
+  if (!empty($medium) && !empty($low)) {
+    $css = <<<CSS
+@media (max-width:$low) {
+  th.priority-low, td.priority-low, th.priority-medium, td.priority-medium {
+    display: none;
+  }
+}
+@media (max-width:$medium) {
+  th.priority-low, td.priority-low {
+    display: none;
+  }
+}
+CSS;
+    drupal_add_css($css, array('type' => 'inline', 'media' => 'screen'));
+  }
+  else {
+    $css_file = $css = drupal_get_path('module', 'responsive_tables') . '/css/' . $GLOBALS['theme'] . '.css';
+    if (is_file($css)) {
+      drupal_add_css($css);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function responsive_tables_form_system_theme_settings_alter(&$form, &$form_state) {
+  if (isset($form_state['build_info']['args'][0]) && ($theme = $form_state['build_info']['args'][0])) {
+    $form['responsive_tables'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Responsive table settings'),
+      '#weight' => 10,
+    );
+    $form['responsive_tables']['responsive_tables_medium_priority_max_width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Minimum priority CSS width'),
+      '#default_value' => theme_get_setting('responsive_tables_medium_priority_max_width', $theme),
+    );
+    $form['responsive_tables']['responsive_tables_low_priority_max_width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Low priority CSS width'),
+      '#default_value' => theme_get_setting('responsive_tables_low_priority_max_width', $theme),
+    );
+    $form['#submit'][] = 'responsive_tables_form_system_theme_settings_submit';
   }
 }
