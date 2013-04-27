@@ -401,22 +401,21 @@ CSS;
  * Implements hook_form_FORM_ID_alter().
  */
 function responsive_tables_form_system_theme_settings_alter(&$form, &$form_state) {
-  if (isset($form_state['build_info']['args'][0]) && ($theme = $form_state['build_info']['args'][0])) {
-    $form['responsive_tables'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Responsive table settings'),
-      '#weight' => 10,
-    );
-    $form['responsive_tables']['responsive_tables_medium_priority_max_width'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Minimum priority CSS width'),
-      '#default_value' => theme_get_setting('responsive_tables_medium_priority_max_width', $theme),
-    );
-    $form['responsive_tables']['responsive_tables_low_priority_max_width'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Low priority CSS width'),
-      '#default_value' => theme_get_setting('responsive_tables_low_priority_max_width', $theme),
-    );
-    $form['#submit'][] = 'responsive_tables_form_system_theme_settings_submit';
-  }
+  $theme = isset($form_state['build_info']['args'][0]) ? $form_state['build_info']['args'][0] : '';
+  $form['responsive_tables'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Responsive table settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['responsive_tables']['responsive_tables_medium_priority_max_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Minimum priority max-width CSS'),
+    '#default_value' => theme_get_setting('responsive_tables_medium_priority_max_width', $theme),
+  );
+  $form['responsive_tables']['responsive_tables_low_priority_max_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Low priority max-width CSS'),
+    '#default_value' => theme_get_setting('responsive_tables_low_priority_max_width', $theme),
+  );
 }
