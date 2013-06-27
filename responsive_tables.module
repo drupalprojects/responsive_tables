@@ -162,7 +162,6 @@ function responsive_tables_theme_table($variables) {
     ));
   }
 
-  $responsive = array();
   // Format the table header:
   if (count($header)) {
     $ts = tablesort_init($header);
