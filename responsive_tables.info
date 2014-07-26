@@ -1,5 +1,6 @@
 name = Responsive Tables
-description = Brings a responsive tables library into views
+description = Defines responsive table libraries
 core = 7.x
 
-dependencies[] = views
+suggests[] = views
+configure = admin/config/user-interface/responsive-tables

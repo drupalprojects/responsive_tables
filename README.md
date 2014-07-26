@@ -11,6 +11,13 @@ Installation
 
 Extract into your modules directory (ex: sites/all/modules/contrib) and enable the module.
 
+Configuration
+-------------
+
+You have the option to use different responsive table libraries. Not all libraries support all options so you'll have to try them out to see what works.
+
+Configure which library to use at admin/config/user-interface/responsive-tables
+
 Usage
 -----
 

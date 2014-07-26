@@ -2,9 +2,7 @@
 
 /**
  * @file
- * Describe the file
- *
- * @author  Chris Kahn <ckahn@coldfrontlabs.ca>
+ * Defines responsive table libraries
  */
 
 /**
@@ -13,20 +11,45 @@
 function responsive_tables_library() {
   $path = libraries_get_path('MediaTable');
 
-  $libraries['responsive_tables'] = array(
-    'title' => 'Responsive Tables',
+  $libraries['MediaTable'] = array(
+    'title' => 'MediaTable Responsive Tables',
     'version' => '1.0',
     'js' => array(
-      $path . '/jquery.mediaTable.js' => array(),
-      $path . '/respond.min.js' => array(),
+      $path . '/jquery.mediaTable.js' => array(
+        'scope' => 'footer',
+      ),
+      $path . '/respond.min.js' => array(
+        'scope' => 'footer',
+      ),
     ),
     'css' => array(
       $path . '/jquery.mediaTable.css' => array(
         'type' => 'file',
         'media' => 'screen',
+        'scope' => 'footer',
       ),
     ),
   );
+
+  $path = libraries_get_path('ZurbResponsiveTables');
+
+  $libraries['ZurbResponsiveTables'] = array(
+    'title' => 'Zurb Responsive Tables',
+    'version' => '1.0',
+    'js' => array(
+      $path . '/responsive-tables.js' => array(
+        'scope' => 'footer',
+      ),
+    ),
+    'css' => array(
+      $path . '/responsive-tables.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+        'scope' => 'footer',
+      ),
+    ),
+  );
+
   return $libraries;
 }
 
@@ -37,7 +60,7 @@ function responsive_tables_preprocess_views_view(&$vars) {
   if (isset($vars['view']->style_plugin->options['responsify']) &&
       $vars['view']->style_plugin->options['responsify'] == TRUE
   ) {
-    drupal_add_library('responsive_tables', 'responsive_tables');
+    drupal_add_library('responsive_tables', 'MediaTable');
     drupal_add_js('jQuery(document).ready(function() { jQuery(".view-dom-id-' . $vars['view']->dom_id . ' table").mediaTable(); });', array(
       'type' => 'inline',
     ));
