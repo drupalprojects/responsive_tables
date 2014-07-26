@@ -57,12 +57,19 @@ function responsive_tables_library() {
  * Implements hook_preprocess_views_view().
  */
 function responsive_tables_preprocess_views_view(&$vars) {
-  if (isset($vars['view']->style_plugin->options['responsify']) &&
-      $vars['view']->style_plugin->options['responsify'] == TRUE
-  ) {
-    drupal_add_library('responsive_tables', 'MediaTable');
-    drupal_add_js('jQuery(document).ready(function() { jQuery(".view-dom-id-' . $vars['view']->dom_id . ' table").mediaTable(); });', array(
-      'type' => 'inline',
-    ));
+  if (isset($vars['view']->style_plugin->options['responsify']) and $vars['view']->style_plugin->options['responsify'] == TRUE) {
+
+    switch ($vars['view']->style_plugin->options['table_library']) {
+      case 'ZurbResponsiveTables':
+        drupal_add_library('responsive_tables', 'ZurbResponsiveTables');
+        dpm($vars'[view]');
+      break;
+      case 'MediaTable':
+      default:
+        drupal_add_library('responsive_tables', 'MediaTable');
+        drupal_add_js('jQuery(document).ready(function() { jQuery(".view-dom-id-' . $vars['view']->dom_id . ' table").mediaTable(); });', array(
+          'type' => 'inline',
+        ));
+    }
   }
 }
