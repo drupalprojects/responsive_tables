@@ -62,7 +62,7 @@ function responsive_tables_preprocess_views_view(&$vars) {
     switch ($vars['view']->style_plugin->options['table_library']) {
       case 'ZurbResponsiveTables':
         drupal_add_library('responsive_tables', 'ZurbResponsiveTables');
-        dpm($vars'[view]');
+        dpm($vars['view']);
       break;
       case 'MediaTable':
       default:
